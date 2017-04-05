@@ -9,20 +9,18 @@ MainWindow::MainWindow(QWidget *parent) :
 
     db = QSqlDatabase::addDatabase("QSQLITE");
     if( QFile::exists(DB_PATH) ){
-        msg = "database exist : " + DB_PATH;
-        isDBOpened = true;
+        qDebug() << "database exist : " << DB_PATH ;
     }else{
-        msg = "No database : " + DB_PATH;
-        isDBOpened = false;
-        //TODO created a db
+        qDebug() << "No database : " << DB_PATH ;
         return;
     }
     db.setDatabaseName(DB_PATH);
     db.open();
     if( !db.isOpen()){
-        msg = "Database open Error : " + DB_PATH;
-        isDBOpened = false;
+        qDebug() << "Database open Error : " + DB_PATH ;
         return;
+    }else{
+        statusBar()->showMessage("Database openned. ");
     }
 
 }

@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QtSql>
 #include <QFile>
+#include <QDebug>
+#include "constant.h"
 
 namespace Ui {
 class MainWindow;
