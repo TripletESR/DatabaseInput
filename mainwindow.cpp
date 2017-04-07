@@ -14,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
         qDebug() << "No database : " << DB_PATH ;
         return;
     }
+
     db.setDatabaseName(DB_PATH);
     db.open();
     if( !db.isOpen()){
@@ -23,9 +24,19 @@ MainWindow::MainWindow(QWidget *parent) :
         statusBar()->showMessage("Database openned. ");
     }
 
+    addChemical = new AddChemicalDialog();
+
 }
 
 MainWindow::~MainWindow()
 {
+    delete addChemical;
     delete ui;
+}
+
+void MainWindow::on_pushButton_addChemical_clicked()
+{
+    if( addChemical->isHidden()){
+        addChemical->show();
+    }
 }
