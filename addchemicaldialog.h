@@ -22,8 +22,9 @@ public:
 
 private slots:
     void dragEnterEvent(QDragEnterEvent* event);
-    void dragLeaveEvent(QDragLeaveEvent* event);
     void dropEvent(QDropEvent * event);
+    void mousePressEvent(QMouseEvent * event);
+
     void on_pushButton_clicked();
 
     bool checkDataComplete();
@@ -31,8 +32,6 @@ private slots:
     void on_lineEdit_name_editingFinished();
 
     void on_lineEdit_formula_editingFinished();
-
-    void on_pushButton_addPic_clicked();
 
 private:
     Ui::AddChemicalDialog *ui;

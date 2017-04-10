@@ -48,12 +48,14 @@ void MainWindow::on_pushButton_addSample_clicked()
     query.exec("SELECT NAME FROM Chemical");
 
     QStringList chemicalList;
+    chemicalList << "";
     while(query.next()){
         chemicalList << query.value(0).toString();
     }
 
     query.exec("SELECT NAME FROM Solvent");
     QStringList solventList;
+    solventList << "";
     while(query.next()){
         solventList << query.value(0).toString();
     }
