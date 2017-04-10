@@ -21,16 +21,17 @@ MainWindow::MainWindow(QWidget *parent) :
         qDebug() << "Database open Error : " + DB_PATH ;
         return;
     }else{
-        statusBar()->showMessage("Database openned. ");
+        statusBar()->showMessage("Database openned. " + DB_PATH);
     }
 
-    addChemical = new AddChemicalDialog();
-
+    addChemical = new AddChemicalDialog(this);
+    addSample = new AddSampleDialog(this);
 }
 
 MainWindow::~MainWindow()
 {
     delete addChemical;
+    delete addSample;
     delete ui;
 }
 
@@ -38,5 +39,29 @@ void MainWindow::on_pushButton_addChemical_clicked()
 {
     if( addChemical->isHidden()){
         addChemical->show();
+    }
+}
+
+void MainWindow::on_pushButton_addSample_clicked()
+{
+    QSqlQuery query;
+    query.exec("SELECT NAME FROM Chemical");
+
+    QStringList chemicalList;
+    while(query.next()){
+        chemicalList << query.value(0).toString();
+    }
+
+    query.exec("SELECT NAME FROM Solvent");
+    QStringList solventList;
+    while(query.next()){
+        solventList << query.value(0).toString();
+    }
+
+    addSample->AddChemicalList(chemicalList);
+    addSample->AddSolventList(solventList);
+
+    if( addSample->isHidden()){
+        addSample->show();
     }
 }

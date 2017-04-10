@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>487</width>
+    <width>603</width>
     <height>349</height>
    </rect>
   </property>
@@ -16,8 +16,26 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout" rowstretch="1,1,1,1,0" columnstretch="1,2">
-   <item row="1" column="0">
+  <layout class="QGridLayout" name="gridLayout" rowstretch="1,1,1,1,1,0" columnstretch="1,2,4">
+   <item row="0" column="2" rowspan="5">
+    <widget class="QLabel" name="label">
+     <property name="font">
+      <font>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Box</enum>
+     </property>
+     <property name="text">
+      <string>Drag to add Picture</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
     <widget class="QLineEdit" name="lineEdit_formula">
      <property name="minimumSize">
       <size>
@@ -32,7 +50,7 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="0">
+   <item row="0" column="1">
     <widget class="QLineEdit" name="lineEdit_name">
      <property name="minimumSize">
       <size>
@@ -47,20 +65,47 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="1" rowspan="4">
-    <widget class="QLabel" name="label">
-     <property name="frameShape">
-      <enum>QFrame::Box</enum>
+   <item row="0" column="0">
+    <widget class="QLabel" name="label_2">
+     <property name="font">
+      <font>
+       <pointsize>16</pointsize>
+      </font>
      </property>
      <property name="text">
-      <string>Picture</string>
+      <string>Name</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignCenter</set>
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
     </widget>
    </item>
-   <item row="3" column="0">
+   <item row="5" column="0">
+    <widget class="QLabel" name="label_4">
+     <property name="text">
+      <string>Picture Path</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label_3">
+     <property name="font">
+      <font>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Fourmula</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0" colspan="2">
     <widget class="QPushButton" name="pushButton">
      <property name="minimumSize">
       <size>
@@ -81,9 +126,24 @@
      </property>
     </widget>
    </item>
-   <item row="4" column="0" colspan="2">
+   <item row="5" column="1" colspan="2">
     <widget class="QLineEdit" name="lineEdit_picPath">
      <property name="enabled">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QPushButton" name="pushButton_addPic">
+     <property name="font">
+      <font>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Add Picture</string>
+     </property>
+     <property name="autoDefault">
       <bool>false</bool>
      </property>
     </widget>
@@ -93,6 +153,7 @@
  <tabstops>
   <tabstop>lineEdit_name</tabstop>
   <tabstop>lineEdit_formula</tabstop>
+  <tabstop>pushButton_addPic</tabstop>
   <tabstop>pushButton</tabstop>
   <tabstop>lineEdit_picPath</tabstop>
  </tabstops>

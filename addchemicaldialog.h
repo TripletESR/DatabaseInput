@@ -5,6 +5,7 @@
 #include <QtSql>
 #include <QDropEvent>
 #include <QMimeData>
+#include <QFileDialog>
 #include "constant.h"
 
 namespace Ui {
@@ -30,6 +31,8 @@ private slots:
     void on_lineEdit_name_editingFinished();
 
     void on_lineEdit_formula_editingFinished();
+
+    void on_pushButton_addPic_clicked();
 
 private:
     Ui::AddChemicalDialog *ui;

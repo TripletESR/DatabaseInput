@@ -43,9 +43,8 @@ void AddChemicalDialog::dropEvent(QDropEvent *event)
     }else{
         scaledImage = image.scaledToWidth(labelW);
     }
-    //ui->label->resize(image.width(), image.height());
-    ui->label->setPixmap( QPixmap::fromImage( scaledImage) );
 
+    ui->label->setPixmap( QPixmap::fromImage( scaledImage) );
     ui->lineEdit_picPath->setText(picPath);
 
     checkDataComplete();
@@ -99,4 +98,44 @@ void AddChemicalDialog::on_lineEdit_name_editingFinished()
 void AddChemicalDialog::on_lineEdit_formula_editingFinished()
 {
     checkDataComplete();
+}
+
+void AddChemicalDialog::on_pushButton_addPic_clicked()
+{
+    QFileDialog fileDialog(this);
+    //fileDialog.setNameFilter("Picture (*bmp *png *jpg *jpeg *gif)");
+    fileDialog.setReadOnly(1);
+    fileDialog.setDirectory(ChemicalPicture_PATH);
+    QString fileName;
+    if( fileDialog.exec() ){
+        QStringList fileNames = fileDialog.selectedFiles();
+        fileName = fileNames[0];
+    }
+    qDebug() << fileName;
+
+    if( fileName == ""){
+        ui->lineEdit_picPath->setText("no file seleced.");
+        ui->pushButton->setEnabled(false);
+    }else{
+        picPath = fileName;
+
+        QImage image(picPath);
+        int imageH = image.height();
+        int imageW = image.width();
+
+        int labelH = ui->label->geometry().height();
+        int labelW = ui->label->geometry().width();
+
+        QImage scaledImage;
+        if( 1.*imageH/imageW > 1.*labelH/labelW){
+            scaledImage = image.scaledToHeight(labelH);
+        }else{
+            scaledImage = image.scaledToWidth(labelW);
+        }
+
+        ui->label->setPixmap( QPixmap::fromImage( scaledImage) );
+        ui->lineEdit_picPath->setText(picPath);
+
+        checkDataComplete();
+    }
 }
