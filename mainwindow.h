@@ -7,6 +7,7 @@
 #include <QDebug>
 #include "constant.h"
 #include "addchemicaldialog.h"
+#include "addsampledialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -23,11 +24,14 @@ public:
 private slots:
     void on_pushButton_addChemical_clicked();
 
+    void on_pushButton_addSample_clicked();
+
 private:
     Ui::MainWindow *ui;
 
     QSqlDatabase db;
     AddChemicalDialog * addChemical;
+    AddSampleDialog * addSample;
 };
 
 #endif // MAINWINDOW_H

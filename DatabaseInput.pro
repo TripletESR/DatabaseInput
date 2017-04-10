@@ -25,11 +25,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    addchemicaldialog.cpp
+    addchemicaldialog.cpp \
+    addsampledialog.cpp
 
 HEADERS  += mainwindow.h \
     constant.h \
-    addchemicaldialog.h
+    addchemicaldialog.h \
+    addsampledialog.h
 
 FORMS    += mainwindow.ui \
-    addchemicaldialog.ui
+    addchemicaldialog.ui \
+    addsampledialog.ui
