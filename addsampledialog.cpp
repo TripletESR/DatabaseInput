@@ -79,7 +79,7 @@ void AddSampleDialog::mousePressEvent(QMouseEvent *mouse)
         QFileDialog fileDialog(this);
         //fileDialog.setNameFilter("Picture (*bmp *png *jpg *jpeg *gif)");
         fileDialog.setReadOnly(1);
-        fileDialog.setDirectory( SamplePicture_PATH );
+        fileDialog.setDirectory( SAMPLE_PIC_PATH );
         QString fileName;
         if( fileDialog.exec() ){
             QStringList fileNames = fileDialog.selectedFiles();
@@ -102,7 +102,7 @@ void AddSampleDialog::mousePressEvent(QMouseEvent *mouse)
         QFileDialog fileDialog(this);
         //fileDialog.setNameFilter("Picture (*bmp *png *jpg *jpeg *gif)");
         fileDialog.setReadOnly(1);
-        fileDialog.setDirectory( SamplePicture_PATH );
+        fileDialog.setDirectory( SAMPLE_PIC_PATH );
         QString fileName;
         if( fileDialog.exec() ){
             QStringList fileNames = fileDialog.selectedFiles();

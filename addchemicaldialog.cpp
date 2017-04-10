@@ -53,7 +53,7 @@ void AddChemicalDialog::mousePressEvent(QMouseEvent *event)
         QFileDialog fileDialog(this);
         //fileDialog.setNameFilter("Picture (*bmp *png *jpg *jpeg *gif)");
         fileDialog.setReadOnly(1);
-        fileDialog.setDirectory(ChemicalPicture_PATH);
+        fileDialog.setDirectory(CHEMICAL_PIC_PATH);
         QString fileName;
         if( fileDialog.exec() ){
             QStringList fileNames = fileDialog.selectedFiles();

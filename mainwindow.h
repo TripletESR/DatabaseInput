@@ -5,6 +5,7 @@
 #include <QtSql>
 #include <QFile>
 #include <QDebug>
+#include <QMessageBox>
 #include "constant.h"
 #include "addchemicaldialog.h"
 #include "addsampledialog.h"
@@ -20,6 +21,8 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+
+    int loadConfigurationFile();
 
 private slots:
     void on_pushButton_addChemical_clicked();
