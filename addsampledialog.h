@@ -7,6 +7,7 @@
 #include <QDebug>
 #include <QMimeData>
 #include <QFileDialog>
+#include <QtSql>
 #include <QLabel>
 #include <QLineEdit>
 #include "constant.h"
@@ -31,9 +32,19 @@ public:
     void AddChemicalList(QStringList list);
     void AddSolventList(QStringList list);
 
-    void CheckDataComplete();
+private slots:
 
+    void CheckDataComplete();
     void SetPicture(QLabel * label, QLineEdit *lineEdit, QString &sysPath, QString path);
+
+    void on_lineEdit_sampleName_editingFinished();
+    void on_lineEdit_concentration_editingFinished();
+    void on_lineEdit_maker_editingFinished();
+    void on_comboBox_chemical_currentIndexChanged(int index);
+    void on_comboBox_solvent_currentIndexChanged(int index);
+    void on_pushButton_clicked();
+
+    void ClearEntries();
 
 private:
     Ui::AddSampleDialog *ui;

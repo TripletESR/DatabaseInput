@@ -10,6 +10,8 @@ AddSampleDialog::AddSampleDialog(QWidget *parent) :
     QDateTime date;
 
     ui->lineEdit_date->setText(date.currentDateTime().toString("yyyy-MM-dd"));
+    ui->label_pic->setText("Drag/Click to\n add Picture.");
+    ui->label_spectrum->setText("Drag/Click to\n add Spectrum.");
 
 }
 
@@ -127,11 +129,13 @@ void AddSampleDialog::mousePressEvent(QMouseEvent *mouse)
 
 void AddSampleDialog::AddChemicalList(QStringList list)
 {
+    ui->comboBox_chemical->clear();
     ui->comboBox_chemical->addItems(list);
 }
 
 void AddSampleDialog::AddSolventList(QStringList list)
 {
+    ui->comboBox_solvent->clear();
     ui->comboBox_solvent->addItems(list);
 }
 
@@ -173,5 +177,88 @@ void AddSampleDialog::SetPicture(QLabel *label, QLineEdit * lineEdit, QString &s
 
     label->setPixmap( QPixmap::fromImage( scaledImage) );
     lineEdit->setText(sysPath);
+
+}
+
+void AddSampleDialog::on_lineEdit_sampleName_editingFinished()
+{
+    CheckDataComplete();
+}
+
+void AddSampleDialog::on_lineEdit_concentration_editingFinished()
+{
+    CheckDataComplete();
+}
+
+void AddSampleDialog::on_lineEdit_maker_editingFinished()
+{
+    CheckDataComplete();
+}
+
+void AddSampleDialog::on_comboBox_chemical_currentIndexChanged(int index)
+{
+    if( index > 0 ) CheckDataComplete();
+}
+
+void AddSampleDialog::on_comboBox_solvent_currentIndexChanged(int index)
+{
+    if( index > 0 ) CheckDataComplete();
+}
+
+void AddSampleDialog::on_pushButton_clicked()
+{
+    QSqlQuery query;
+
+    query.prepare("INSERT INTO Sample (NAME, Chemical, Solvent, Concentration, Date, Maker, Comment, PicPath, SpectrumPath)"
+                  "VALUES (:NAME, :Chemical, :Solvent, :Concentration, :Date, :Maker, :Comment, :PicPath, :SpectrumPath)");
+
+    query.bindValue(":NAME", ui->lineEdit_sampleName->text());
+    query.bindValue(":Chemical", ui->comboBox_chemical->currentText());
+    query.bindValue(":Solvent", ui->comboBox_solvent->currentText());
+    query.bindValue(":Concentration", ui->lineEdit_concentration->text());
+    query.bindValue(":Date", ui->lineEdit_date->text());
+    query.bindValue(":Maker", ui->lineEdit_maker->text());
+    query.bindValue(":Comment", ui->lineEdit_comment->text());
+
+    int len = SAMPLE_PIC_PATH.length();
+    QString shortPicPath = picPath.right(picPath.length()-len);
+    QString shortSpectPath = spectrumPath.right(spectrumPath.length()-len);
+
+    query.bindValue(":PicPath", shortPicPath);
+    query.bindValue(":SpectrumPath", shortSpectPath);
+
+    query.exec();
+
+    ClearEntries();
+
+    query.exec("SELECT * FROM Sample");
+    int col = query.record().count();
+    query.last();
+    QString msg;
+    for( int i = 0 ; i < col-1; i++){
+        msg += query.value(i).toString() + ", ";
+    }
+    msg += query.value(col-1).toString();
+
+    //qDebug() << msg;
+    ui->lineEdit_picPath->setText("Written to DB.");
+    ui->lineEdit_spectrumPath->setText(msg);
+}
+
+void AddSampleDialog::ClearEntries()
+{
+    ui->lineEdit_sampleName->setText("");
+    ui->lineEdit_concentration->setText("");
+    ui->lineEdit_comment->setText("");
+    ui->lineEdit_maker->setText("");
+    ui->comboBox_chemical->setCurrentIndex(0);
+    ui->comboBox_solvent->setCurrentIndex(0);
+    ui->label_pic->setText("Drag/Click to\n add Picture.");
+    ui->label_spectrum->setText("Drag/Click to\n add Spectrum.");
+
+    ui->lineEdit_picPath->setText("");
+    ui->lineEdit_spectrumPath->setText("");
+
+    ui->pushButton->setEnabled(false);
 
 }

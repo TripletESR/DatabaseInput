@@ -100,7 +100,7 @@ void AddChemicalDialog::on_pushButton_clicked()
 
     QStringList path = picPath.split("/");
 
-    qDebug() << path;
+    //qDebug() << path;
 
     query.bindValue(2, path[path.size()-1]);
 
@@ -109,12 +109,17 @@ void AddChemicalDialog::on_pushButton_clicked()
     query.exec("SELECT * FROM Chemical");
     int col = query.record().count();
     query.last();
-    QString msg;
-    for( int i = 0 ; i < col; i++){
+    QString msg = "DB Written: ";
+    for( int i = 0 ; i < col-1; i++){
         msg += query.value(i).toString() + ", ";
     }
+    msg += query.value(col-1).toString();
 
-    qDebug() << msg;
+    //qDebug() << msg;
+
+    clearEntries();
+
+    ui->lineEdit_picPath->setText(msg);
 
 }
 
@@ -136,4 +141,13 @@ void AddChemicalDialog::on_lineEdit_name_editingFinished()
 void AddChemicalDialog::on_lineEdit_formula_editingFinished()
 {
     checkDataComplete();
+}
+
+void AddChemicalDialog::clearEntries()
+{
+    ui->lineEdit_name->setText("");
+    ui->lineEdit_formula->setText("");
+    ui->label->setText("Drag/Click to add Picture.");
+    ui->lineEdit_picPath->setText("");
+    ui->pushButton->setEnabled(false);
 }

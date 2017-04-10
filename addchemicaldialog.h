@@ -30,8 +30,9 @@ private slots:
     bool checkDataComplete();
 
     void on_lineEdit_name_editingFinished();
-
     void on_lineEdit_formula_editingFinished();
+
+    void clearEntries();
 
 private:
     Ui::AddChemicalDialog *ui;
