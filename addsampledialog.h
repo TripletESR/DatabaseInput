@@ -31,6 +31,7 @@ public:
 
     void AddChemicalList(QStringList list);
     void AddSolventList(QStringList list);
+    void ClearEntries();
 
 private slots:
 
@@ -44,7 +45,6 @@ private slots:
     void on_comboBox_solvent_currentIndexChanged(int index);
     void on_pushButton_clicked();
 
-    void ClearEntries();
 
 private:
     Ui::AddSampleDialog *ui;

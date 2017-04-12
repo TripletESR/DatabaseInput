@@ -9,6 +9,7 @@
 #include "constant.h"
 #include "addchemicaldialog.h"
 #include "addsampledialog.h"
+#include "additemsdialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -29,12 +30,19 @@ private slots:
 
     void on_pushButton_addSample_clicked();
 
+    void on_pushButton_addSolvent_clicked();
+
+    void on_pushButton_addLaser_clicked();
+
 private:
     Ui::MainWindow *ui;
 
     QSqlDatabase db;
     AddChemicalDialog * addChemical;
     AddSampleDialog * addSample;
+
+    AddItemsDialog * addSolvent;
+    AddItemsDialog * addLaser;
 };
 
 #endif // MAINWINDOW_H

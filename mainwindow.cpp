@@ -45,11 +45,23 @@ MainWindow::MainWindow(QWidget *parent) :
     }
 
     addChemical = new AddChemicalDialog(this);
+    addChemical->setWindowModality(Qt::WindowModal);
     addSample = new AddSampleDialog(this);
+    addSample->setWindowModality(Qt::WindowModal);
+    addSolvent = new AddItemsDialog("Solvent", this);
+    addSolvent->setWindowModality(Qt::WindowModal);
+    addSolvent->SetPushButtonText("Add Solvent/Host");
+    addSolvent->Setp1Name("FORMULA"); // has to be the name of the col
+    addLaser = new AddItemsDialog("Laser", this);
+    addLaser->setWindowModality(Qt::WindowModal);
+    addLaser->SetPushButtonText("Add Laser");
+    addLaser->Setp1Name("WaveLength");
 }
 
 MainWindow::~MainWindow()
 {
+    delete addLaser;
+    delete addSolvent;
     delete addChemical;
     delete addSample;
     delete ui;
@@ -105,6 +117,7 @@ int MainWindow::loadConfigurationFile()
 
 void MainWindow::on_pushButton_addChemical_clicked()
 {
+    addChemical->clearEntries();
     if( addChemical->isHidden()){
         addChemical->show();
     }
@@ -131,7 +144,24 @@ void MainWindow::on_pushButton_addSample_clicked()
     addSample->AddChemicalList(chemicalList);
     addSample->AddSolventList(solventList);
 
+    addSample->ClearEntries();
     if( addSample->isHidden()){
         addSample->show();
+    }
+}
+
+void MainWindow::on_pushButton_addSolvent_clicked()
+{
+    addSolvent->ClearEntries();
+    if( addSolvent->isHidden()){
+        addSolvent->show();
+    }
+}
+
+void MainWindow::on_pushButton_addLaser_clicked()
+{
+    addLaser->ClearEntries();
+    if(addLaser->isHidden()){
+        addLaser->show();
     }
 }

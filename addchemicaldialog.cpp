@@ -106,6 +106,7 @@ void AddChemicalDialog::on_pushButton_clicked()
 
     query.exec();
 
+    // ask the last entry to confirm
     query.exec("SELECT * FROM Chemical");
     int col = query.record().count();
     query.last();
@@ -145,9 +146,9 @@ void AddChemicalDialog::on_lineEdit_formula_editingFinished()
 
 void AddChemicalDialog::clearEntries()
 {
-    ui->lineEdit_name->setText("");
-    ui->lineEdit_formula->setText("");
+    ui->lineEdit_name->clear();
+    ui->lineEdit_formula->clear();
     ui->label->setText("Drag/Click to add Picture.");
-    ui->lineEdit_picPath->setText("");
+    ui->lineEdit_picPath->clear();
     ui->pushButton->setEnabled(false);
 }

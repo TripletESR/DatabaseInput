@@ -19,6 +19,7 @@ class AddChemicalDialog : public QDialog
 public:
     explicit AddChemicalDialog(QWidget *parent = 0);
     ~AddChemicalDialog();
+    void clearEntries();
 
 private slots:
     void dragEnterEvent(QDragEnterEvent* event);
@@ -32,7 +33,6 @@ private slots:
     void on_lineEdit_name_editingFinished();
     void on_lineEdit_formula_editingFinished();
 
-    void clearEntries();
 
 private:
     Ui::AddChemicalDialog *ui;

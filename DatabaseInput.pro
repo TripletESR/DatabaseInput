@@ -29,16 +29,19 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     addchemicaldialog.cpp \
     addsampledialog.cpp \
-    constant.cpp
+    constant.cpp \
+    additemsdialog.cpp
 
 HEADERS  += mainwindow.h \
     constant.h \
     addchemicaldialog.h \
-    addsampledialog.h
+    addsampledialog.h \
+    additemsdialog.h
 
 FORMS    += mainwindow.ui \
     addchemicaldialog.ui \
-    addsampledialog.ui
+    addsampledialog.ui \
+    additemsdialog.ui
 
 DISTFILES += \
     icon.ico
