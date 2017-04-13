@@ -145,12 +145,12 @@ void AddSampleDialog::CheckDataComplete()
 
     if( ui->comboBox_chemical->currentIndex() > 0 ) count ++;
     if( ui->comboBox_solvent->currentIndex() > 0 ) count ++;
-    if( !ui->lineEdit_sampleName->text().isNull() ) count ++;
-    if( !ui->lineEdit_concentration->text().isNull() ) count ++;
-    if( !ui->lineEdit_maker->text().isNull() ) count ++;
+    if( ui->lineEdit_sampleName->text() != "" ) count ++;
+    if( ui->lineEdit_concentration->text() != "" ) count ++;
+    if( ui->lineEdit_maker->text() != "" ) count ++;
 
-    if( !ui->lineEdit_picPath->text().isNull() ) count ++;
-    if( !ui->lineEdit_spectrumPath->text().isNull() ) count ++;
+    if( ui->lineEdit_picPath->text() != "" ) count ++;
+    if( ui->lineEdit_spectrumPath->text() != "" ) count ++;
 
     //if( !ui->lineEdit_comment->text().isNull() ) count ++;
 
