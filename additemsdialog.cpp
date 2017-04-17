@@ -46,22 +46,37 @@ void AddItemsDialog::on_pushButton_addItems_clicked()
     query.prepare(str);
     query.bindValue(0, ui->lineEdit_name->text());
     query.bindValue(1, ui->lineEdit_p1->text());
-    query.exec();
+    int okFlag = query.exec();
+    if( !okFlag ){
+        QMessageBox msgBox;
+        msgBox.setWindowModality(Qt::WindowModal);
+        msgBox.setWindowFlags(Qt::WindowStaysOnTopHint);
+        msgBox.setText("Write DB fail.\n"
+                       "Please check entries.");
+        msgBox.exec();
+        return;
+    }
 
+
+    ClearEntries();
     // ask the last entry to confirm
     str.sprintf("SELECT * FROM %s", tableName.toStdString().c_str());
     query.exec(str);
     int col = query.record().count();
     query.last();
-    QString msg = "DB Written: ";
+    QString msg;
     for( int i = 0 ; i < col-1; i++){
         msg += query.value(i).toString() + ", ";
     }
     msg += query.value(col-1).toString();
 
-    ClearEntries();
     //this->hide();
-    ui->lineEdit_msg->setText(msg);
+    QMessageBox msgBox;
+    msgBox.setWindowModality(Qt::WindowModal);
+    msgBox.setWindowFlags(Qt::WindowStaysOnTopHint);
+    msgBox.setText("Written to DB.\n" + msg);
+    msgBox.exec();
+    //ui->lineEdit_msg->setText(msg);
 }
 
 void AddItemsDialog::CheckDataComplete()

@@ -6,6 +6,7 @@
 #include <QDropEvent>
 #include <QMimeData>
 #include <QFileDialog>
+#include <QMessageBox>
 #include "constant.h"
 
 namespace Ui {

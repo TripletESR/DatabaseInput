@@ -126,12 +126,19 @@ void MainWindow::on_pushButton_addChemical_clicked()
 void MainWindow::on_pushButton_addSample_clicked()
 {
     QSqlQuery query;
-    query.exec("SELECT NAME FROM Chemical");
 
+    query.exec("SELECT NAME FROM Chemical");
     QStringList chemicalList;
     chemicalList << "";
     while(query.next()){
         chemicalList << query.value(0).toString();
+    }
+
+    query.exec("SELECT ID FROM Chemical");
+    QStringList chemicalIDList;
+    chemicalIDList << "";
+    while(query.next()){
+        chemicalIDList << query.value(0).toString();
     }
 
     query.exec("SELECT NAME FROM Solvent");
@@ -141,8 +148,17 @@ void MainWindow::on_pushButton_addSample_clicked()
         solventList << query.value(0).toString();
     }
 
+    query.exec("SELECT ID FROM Solvent");
+    QStringList solventIDList;
+    solventIDList << "";
+    while(query.next()){
+        solventIDList << query.value(0).toString();
+    }
+
     addSample->AddChemicalList(chemicalList);
     addSample->AddSolventList(solventList);
+    addSample->SetChemicalIDList(chemicalIDList);
+    addSample->SetSolventIDList(solventIDList);
 
     addSample->ClearEntries();
     if( addSample->isHidden()){

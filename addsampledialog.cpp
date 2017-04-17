@@ -133,10 +133,20 @@ void AddSampleDialog::AddChemicalList(QStringList list)
     ui->comboBox_chemical->addItems(list);
 }
 
+void AddSampleDialog::SetChemicalIDList(QStringList list)
+{
+    chemIDList = list;
+}
+
 void AddSampleDialog::AddSolventList(QStringList list)
 {
     ui->comboBox_solvent->clear();
     ui->comboBox_solvent->addItems(list);
+}
+
+void AddSampleDialog::SetSolventIDList(QStringList list)
+{
+    solventIDList = list;
 }
 
 void AddSampleDialog::CheckDataComplete()
@@ -209,12 +219,12 @@ void AddSampleDialog::on_pushButton_clicked()
 {
     QSqlQuery query;
 
-    query.prepare("INSERT INTO Sample (NAME, Chemical, Solvent, Concentration, Date, Maker, Comment, PicPath, SpectrumPath)"
-                  "VALUES (:NAME, :Chemical, :Solvent, :Concentration, :Date, :Maker, :Comment, :PicPath, :SpectrumPath)");
+    query.prepare("INSERT INTO Sample (NAME, ChemicalID, SolventID, Concentration, Date, Maker, Comment, PicPath, SpectrumPath)"
+                  "VALUES (:NAME, :ChemicalID, :SolventID, :Concentration, :Date, :Maker, :Comment, :PicPath, :SpectrumPath)");
 
     query.bindValue(":NAME", ui->lineEdit_sampleName->text());
-    query.bindValue(":Chemical", ui->comboBox_chemical->currentText());
-    query.bindValue(":Solvent", ui->comboBox_solvent->currentText());
+    query.bindValue(":ChemicalID", chemIDList[ui->comboBox_chemical->currentIndex()]);
+    query.bindValue(":SolventID", solventIDList[ui->comboBox_solvent->currentIndex()]);
     query.bindValue(":Concentration", ui->lineEdit_concentration->text());
     query.bindValue(":Date", ui->lineEdit_date->text());
     query.bindValue(":Maker", ui->lineEdit_maker->text());
@@ -227,7 +237,17 @@ void AddSampleDialog::on_pushButton_clicked()
     query.bindValue(":PicPath", shortPicPath);
     query.bindValue(":SpectrumPath", shortSpectPath);
 
-    query.exec();
+    bool okFlag = query.exec();
+
+    if( !okFlag ){
+        QMessageBox msgBox;
+        msgBox.setWindowModality(Qt::WindowModal);
+        msgBox.setWindowFlags(Qt::WindowStaysOnTopHint);
+        msgBox.setText("Write DB fail.\n"
+                       "Please check entries.");
+        msgBox.exec();
+        return;
+    }
 
     ClearEntries();
 
@@ -241,8 +261,13 @@ void AddSampleDialog::on_pushButton_clicked()
     msg += query.value(col-1).toString();
 
     //qDebug() << msg;
-    ui->lineEdit_picPath->setText("Written to DB.");
-    ui->lineEdit_spectrumPath->setText(msg);
+    QMessageBox msgBox;
+    msgBox.setWindowModality(Qt::WindowModal);
+    msgBox.setWindowFlags(Qt::WindowStaysOnTopHint);
+    msgBox.setText("Written to DB.\n" + msg);
+    msgBox.exec();
+    //ui->lineEdit_picPath->setText("Written to DB.");
+    //ui->lineEdit_spectrumPath->setText(msg);
 }
 
 void AddSampleDialog::ClearEntries()

@@ -10,6 +10,7 @@
 #include <QtSql>
 #include <QLabel>
 #include <QLineEdit>
+#include <QMessageBox>
 #include "constant.h"
 
 namespace Ui {
@@ -30,7 +31,9 @@ public:
     void mousePressEvent(QMouseEvent * mouse);
 
     void AddChemicalList(QStringList list);
+    void SetChemicalIDList(QStringList list);
     void AddSolventList(QStringList list);
+    void SetSolventIDList(QStringList list);
     void ClearEntries();
 
 private slots:
@@ -51,6 +54,8 @@ private:
 
     QString picPath;
     QString spectrumPath;
+    QStringList chemIDList;
+    QStringList solventIDList;
 };
 
 #endif // ADDSAMPLEDIALOG_H

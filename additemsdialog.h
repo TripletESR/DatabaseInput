@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <QString>
 #include <QtSql>
+#include <QMessageBox>
 
 namespace Ui {
 class AddItemsDialog;

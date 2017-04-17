@@ -105,23 +105,37 @@ void AddChemicalDialog::on_pushButton_clicked()
 
     query.bindValue(2, path[path.size()-1]);
 
-    query.exec();
+    bool okFlag = query.exec();
+    if( !okFlag ){
+        QMessageBox msgBox;
+        msgBox.setWindowModality(Qt::WindowModal);
+        msgBox.setWindowFlags(Qt::WindowStaysOnTopHint);
+        msgBox.setText("Write DB fail.\n"
+                       "Please check entries.");
+        msgBox.exec();
+        return;
+    }
+
+    clearEntries();
 
     // ask the last entry to confirm
     query.exec("SELECT * FROM Chemical");
     int col = query.record().count();
     query.last();
-    QString msg = "DB Written: ";
+    QString msg;
     for( int i = 0 ; i < col-1; i++){
         msg += query.value(i).toString() + ", ";
     }
     msg += query.value(col-1).toString();
 
     //qDebug() << msg;
+    QMessageBox msgBox;
+    msgBox.setWindowModality(Qt::WindowModal);
+    msgBox.setWindowFlags(Qt::WindowStaysOnTopHint);
+    msgBox.setText("Written to DB.\n" + msg);
+    msgBox.exec();
 
-    clearEntries();
-
-    ui->lineEdit_picPath->setText(msg);
+    //ui->lineEdit_picPath->setText(msg);
 
 }
 
@@ -152,6 +166,7 @@ void AddChemicalDialog::clearEntries()
     ui->lineEdit_formula->clear();
     ui->label->setText("Drag/Click to add Picture.");
     ui->lineEdit_picPath->clear();
+    ui->lineEdit_comment->clear();
     ui->pushButton->setEnabled(false);
 }
 
