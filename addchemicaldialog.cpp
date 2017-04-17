@@ -92,11 +92,12 @@ void AddChemicalDialog::mousePressEvent(QMouseEvent *event)
 void AddChemicalDialog::on_pushButton_clicked()
 {
     QSqlQuery query;
-    query.prepare("INSERT INTO Chemical (NAME, FORMULA, PicPath)"
-                  "VALUES (:NAME, :FORMULA, :PicPath)");
+    query.prepare("INSERT INTO Chemical (NAME, FORMULA, Comment, PicPath)"
+                  "VALUES (:NAME, :FORMULA, :Comment, :PicPath)");
 
     query.bindValue(0, ui->lineEdit_name->text());
     query.bindValue(1, ui->lineEdit_formula->text());
+    query.bindValue(2, ui->lineEdit_comment->text());
 
     QStringList path = picPath.split("/");
 
@@ -129,6 +130,7 @@ bool AddChemicalDialog::checkDataComplete()
     if( ui->lineEdit_name->text() == "") return 0;
     if( ui->lineEdit_formula->text() == "" ) return 0;
     if( ui->lineEdit_picPath->text() == "" ) return 0;
+    if( ui->lineEdit_comment->text() == "" ) return 0;
 
     ui->pushButton->setEnabled(true);
     return 1;
@@ -151,4 +153,9 @@ void AddChemicalDialog::clearEntries()
     ui->label->setText("Drag/Click to add Picture.");
     ui->lineEdit_picPath->clear();
     ui->pushButton->setEnabled(false);
+}
+
+void AddChemicalDialog::on_lineEdit_comment_editingFinished()
+{
+    checkDataComplete();
 }

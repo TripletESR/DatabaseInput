@@ -7,6 +7,7 @@ AddItemsDialog::AddItemsDialog(QString tableName, QWidget *parent) :
 {
     this->tableName = tableName;
     ui->setupUi(this);
+    this->setWindowTitle("Add " + tableName);
 }
 
 AddItemsDialog::~AddItemsDialog()

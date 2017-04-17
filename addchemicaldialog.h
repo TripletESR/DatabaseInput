@@ -34,6 +34,8 @@ private slots:
     void on_lineEdit_formula_editingFinished();
 
 
+    void on_lineEdit_comment_editingFinished();
+
 private:
     Ui::AddChemicalDialog *ui;
 
